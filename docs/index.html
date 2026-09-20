@@ -1,0 +1,336 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Piano Practice Tool - 利用ガイド</title>
+<style>
+:root{color-scheme:dark;--bg:#0b0e14;--surface:#151922;--raised:#1b202b;--border:#2a3140;--text:#f5f7fa;--sub:#aab2c0;--muted:#747e8f;--accent:#6676ff;--accent2:#aeb7ff;--good:#55d68a;--warn:#ffd166}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:"Segoe UI","Yu Gothic UI",sans-serif;background:var(--bg);color:var(--text);line-height:1.72}
+header{border-bottom:1px solid var(--border);background:linear-gradient(135deg,#10141c,#151922);padding:48px 24px}
+header .inner,main{max-width:1100px;margin:auto}
+.eyebrow{color:var(--accent2);font-weight:700;letter-spacing:.08em}
+h1{font-size:38px;margin:6px 0 8px}
+h2{font-size:25px;margin:42px 0 16px}
+h3{font-size:18px;margin:0 0 8px}
+.lead{max-width:780px;color:var(--sub);font-size:17px}
+nav{position:sticky;top:0;z-index:2;background:rgba(11,14,20,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--border)}
+nav .inner{max-width:1100px;margin:auto;padding:10px 24px;display:flex;gap:8px;flex-wrap:wrap}
+nav a{color:var(--sub);text-decoration:none;padding:7px 10px;border-radius:7px}
+nav a:hover{background:var(--raised);color:var(--text)}
+main{padding:10px 24px 64px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:18px}
+.card p{margin:0;color:var(--sub)}
+kbd,code{font-family:Cascadia Mono,Consolas,monospace;background:var(--raised);border:1px solid var(--border);border-radius:5px;padding:2px 6px;color:var(--accent2)}
+table{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+th,td{text-align:left;padding:11px 13px;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--raised)}
+td{color:var(--sub)}
+.note{border-left:4px solid var(--accent);padding:12px 15px;background:var(--surface);color:var(--sub)}
+.warn{border-left-color:var(--warn)}
+.good{border-left-color:var(--good)}
+.screenshot{margin:20px 0;background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
+.screenshot img{display:block;width:100%;height:auto}
+.screenshot figcaption{padding:10px 14px;color:var(--sub);font-size:14px;border-top:1px solid var(--border)}
+.screenshot-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:20px 0}
+.screenshot-grid .screenshot{margin:0}
+ol,ul{color:var(--sub)}
+strong{color:var(--text)}
+a{color:var(--accent2)}
+footer{border-top:1px solid var(--border);padding:24px;color:var(--muted);text-align:center}
+</style>
+</head>
+<body>
+<header>
+<div class="inner">
+<div class="eyebrow">PIANO PRACTICE TOOL</div>
+<h1>利用ガイド</h1>
+<p class="lead">MusicXMLとMIDIキーボードを使って、楽曲練習・採点・お手本再生・運指確認・MusicXML編集に加え、元音源の波形と譜面を同期させた耳コピ補助も行えるツールです。</p>
+</div>
+</header>
+
+<nav>
+<div class="inner">
+<a href="#start">はじめに</a>
+<a href="#library">楽曲</a>
+<a href="#practice">練習</a>
+<a href="#editor">編集</a>
+<a href="#settings">設定</a>
+<a href="#files">保存場所</a>
+<a href="#controls">操作一覧</a>
+<a href="#project">プロジェクト</a>
+<a href="#license">ライセンス</a>
+</div>
+</nav>
+
+<main>
+<section id="start">
+<h2>はじめに</h2>
+<div class="grid">
+<div class="card"><h3>練習モード</h3><p>待機練習、通常練習、原曲テンポ、お手本再生から目的に合わせて選択できます。</p></div>
+<div class="card"><h3>編集モード</h3><p>MusicXMLのノート編集に加え、元音源の波形を見ながら耳コピ位置を合わせ、必要な区間を試聴して保存できます。</p></div>
+<div class="card"><h3>MIDI</h3><p>MIDIキーボードから演奏入力できます。内蔵SoundFont音源または外部MIDI OUTを選択できます。</p></div>
+</div>
+
+<div class="note" style="margin-top:22px">
+<strong>MusicXMLについて:</strong> Piano Practice Toolは一般的なMusicXMLファイルを読み込めます。ヤマハの <a href="https://piano-sheet-converter.beta.yamaha.com/" target="_blank" rel="noreferrer">Piano Sheet Converter 公式ページ</a> からエクスポートしたMusicXMLも利用できます。本ツールはヤマハ株式会社およびPiano Sheet Converterの公式・関連・提携製品ではありません。MusicXMLや生成楽譜の利用条件は、使用するサービスと各楽曲の権利条件を確認してください。
+</div>
+
+<h3 style="margin-top:22px">最初に行うこと</h3>
+<ol>
+<li><code>PianoPracticeTool.exe</code> を起動します。</li>
+<li>「設定」を開き、使用するMIDI入力と発音先を選びます。</li>
+<li>必要に応じて鍵盤範囲を設定します。「MIDIから音域を検出」も利用できます。</li>
+<li>練習するMusicXMLを <code>score_data</code> に入れるか、「楽曲ライブラリ」設定で別のフォルダを追加します。Piano Sheet Converterを使う場合は、同アプリからMusicXMLとしてエクスポートしたファイルを利用できます。</li>
+<li>起動画面から「練習モード」または「編集モード」を選びます。</li>
+</ol>
+<figure class="screenshot">
+<img src="sample_images/ppt_00_open.jpg" alt="Piano Practice Toolの起動画面">
+<figcaption>起動画面 — 練習モード、編集モード、設定へ進む入口です。</figcaption>
+</figure>
+</section>
+
+<section id="library">
+<h2>楽曲ライブラリ</h2>
+<p>登録したフォルダ内の <code>.xml</code> / <code>.musicxml</code> をサブフォルダまで検索して一覧表示します。一度解析した曲は内容ハッシュ付きのカタログキャッシュを使用し、MusicXMLや運指情報に変更がなければ練習モード / 編集モードの両方で解析結果を再利用します。</p>
+<p class="note good">キャッシュはファイルパスと内容のSHA-256を組み合わせて管理するため、同じMusicXMLを「複製して編集」した場合も別ファイルとして扱います。元ファイルが削除された項目は自動整理されます。</p>
+<div class="grid">
+<div class="card"><h3>検索</h3><p>曲名・作曲者・ファイル名で一覧を絞り込めます。</p></div>
+<div class="card"><h3>難易度</h3><p>入門・初級・中級・上級・未分類で表示を絞り込めます。</p></div>
+<div class="card"><h3>曲情報</h3><p>曲名、作曲者、難易度、Tonic、Scale種類をまとめて編集できます。</p></div>
+<div class="card"><h3>鍵盤範囲</h3><p>両手 / 右手 / 左手を個別に判定し、圧縮なし・楽曲圧縮ありで意味のある練習方法を小型タグとして並べて表示します。</p></div>
+<div class="card"><h3>譜面チェック</h3><p>同じ鍵を保持したまま再打鍵する等の問題を検出すると警告を表示します。自動補正できる場合は、元のMusicXMLを変更せず練習用データだけ補正できます。</p></div>
+<div class="card"><h3>キー / スケール</h3><p>MusicXMLにkey / modeがあればその情報を表示します。情報が不足していても十分な音情報から判断できる場合は「(推定)」として表示します。</p></div>
+</div>
+<p>各曲名の横には、現在の鍵盤範囲で利用できる練習方法を小型タグで表示します。たとえば圧縮なしでは右手・左手を別々に練習でき、楽曲圧縮後なら両手でも弾ける場合は、<strong>「片手可」</strong>と<strong>「圧縮で両手可」</strong>を併記します。圧縮前後で同じ結果になる情報は重複表示しません。</p>
+<p>譜面上に物理的な矛盾の疑いがある場合は <strong>⚠</strong> を表示します。マウスを合わせると、同じ鍵を保持中に再打鍵している位置など、検出した問題の位置と内容を確認できます。自動補正できる曲では「譜面補正」をONにすると、先行する保持時間などを練習用に調整してから練習設定へ進みます。補正後も自動処理できない問題が残る場合は警告を維持します。元のMusicXMLは変更しません。</p>
+<p>MusicXMLのstaffは譜面上の配置として扱います。実際の演奏では反対の手で取る方が自然と機械的に判断できる単音については、練習用の左右手割当を自動調整してから運指を作成します。短時間に大きく跳躍する孤立音も、反対の手へ渡すことで前後の移動量を明確に減らせる場合だけ補正します。</p>
+<p>自動運指は、1音ずつ独立に決めるのではなく前後の流れをまとめて評価します。保持中の同じ手のノートは指位置を固定し、その保持音を跨いで物理的に成立しない指配置を候補から除外します。黒鍵へ親指を置いたまま白鍵へ出入りする配置や不自然な親指くぐり、不要な手移動を避ける一方、黒鍵オクターブや和音など親指が自然な場合は禁止しません。MusicXMLに運指番号が明示されている音はその指定を保持し、未指定部分だけを補完します。</p>
+<p>ライブラリ外のMusicXMLは「MusicXMLを開く」から直接選択できます。上部の「← モード選択」から起動画面へ戻れます。</p>
+<p class="note"><strong>楽曲圧縮</strong>は曲の音をオクターブ単位で移動して現在の鍵盤範囲へ収める機能です。<strong>譜面補正</strong>は物理的にそのまま弾けない箇所を練習用に補正する機能で、どちらも元のMusicXMLを書き換えません。MIDIキーボード本体のオクターブシフトとも別の機能です。</p>
+</section>
+
+<section id="practice">
+<h2>練習モード</h2>
+<div class="grid">
+<div class="card">
+<h3>待機練習</h3>
+<p>正しい鍵盤を弾くまで進行を止めます。音の位置を確認しながら練習したい場合に向いています。</p>
+</div>
+<div class="card">
+<h3>通常練習</h3>
+<p>ノートの流れに合わせて演奏し、タイミング・誤鍵・見逃しを含めて採点します。</p>
+</div>
+<div class="card">
+<h3>原曲テンポ</h3>
+<p>楽譜のテンポに合わせて両手で演奏します。</p>
+</div>
+<div class="card">
+<h3>お手本再生</h3>
+<p>楽譜を自動演奏し、音の流れや運指を確認できます。Spaceキーで再生 / 一時停止 / 再開でき、再生位置スライダーから任意位置へ移動できます。一時停止中はピアノロール上のホイールで1拍ずつ、Shift+ホイールで小節単位に再生位置を動かせます。Rキーで今回の再生開始位置へ戻れるため、同じフレーズを繰り返して暗譜確認できます。</p>
+</div>
+</div>
+
+<h3 style="margin-top:22px">練習前に選べる項目</h3>
+<ul>
+<li>両手 / 右手 / 左手</li>
+<li>練習範囲</li>
+<li>MIDIキーボード本体のオクターブシフト量</li>
+</ul>
+
+<p>通常練習では演奏画面から速度とメトロノームを調整できます。お手本再生では開始時とシーク後の再開時に1小節のカウントインを行います。通常の練習モードではテンポと速度に応じて1〜2小節のカウントインを行います。</p>
+<p>ピアノロールの小節番号にはコード名も表示できます。MusicXMLにコード情報があればそれを優先し、記載がない場合は十分判断できる小節のみ推定して <code>?</code> を付けます。</p>
+<p>練習終了後はスコアと練習結果を確認できます。過去の記録とBESTも楽曲ごとに確認できます。</p>
+<div class="screenshot-grid">
+<figure class="screenshot">
+<img src="sample_images/ppt_01_plactice00.jpg" alt="Piano Practice Toolの曲選択画面">
+<figcaption>曲選択 — 圧縮なし / 圧縮ありで利用できる練習方法を、必要な組み合わせだけタグ表示します。</figcaption>
+</figure>
+<figure class="screenshot">
+<img src="sample_images/ppt_01_plactice00_warning.jpg" alt="Piano Practice Toolの曲選択画面 譜面警告表示">
+<figcaption>譜面警告 — 物理的にそのまま弾きにくい譜面を検出すると警告を表示し、自動補正できる曲では「譜面補正」を選べます。</figcaption>
+</figure>
+<figure class="screenshot">
+<img src="sample_images/ppt_02_plactice01.jpg" alt="Piano Practice Toolの練習設定画面">
+<figcaption>練習設定 — 練習モード、演奏パート、練習範囲、MIDIキーボード本体のシフト量を選びます。</figcaption>
+</figure>
+<figure class="screenshot">
+<img src="sample_images/ppt_03_plactice02.jpg" alt="Piano Practice Toolの演奏画面">
+<figcaption>演奏画面 — ピアノロールを見ながら演奏し、速度、メトロノーム、採点結果を確認できます。</figcaption>
+</figure>
+</div>
+</section>
+
+<section id="editor">
+<h2>編集モード</h2>
+<p>MusicXMLをピアノロールで編集できます。元ファイルを直接編集するほか、複製してから編集することもできます。</p>
+<figure class="screenshot">
+<img src="sample_images/ppt_04_edit00.jpg" alt="Piano Practice ToolのMusicXML編集画面">
+<figcaption>編集モード — ノート、小節構造、拍子、Tempo、コードを編集できます。元音源を使用すると、同じ時間軸上に波形と同期ポイント、カット区間も表示されます。</figcaption>
+</figure>
+
+<table>
+<thead><tr><th>領域</th><th>できること</th></tr></thead>
+<tbody>
+<tr><td>編集ツールバー</td><td>Undo / Redo、コピー、切り取り、貼り付け、複製、削除、分割、左右手割当、スナップ</td></tr>
+<tr><td>左タイムラインレーン</td><td>小節番号、コード名、Tempo変更点を表示します。小節番号は対応する小節の開始線より上側に表示されます。小節番号側のクリックで現在位置を移動し、ドラッグで時間方向へスクロールします。右クリックすると空小節の挿入 / 小節削除 / 拍子変更 / テンポ設定・変更削除を行えます。</td></tr>
+<tr><td>ピアノロール</td><td>ノート挿入、選択、移動、長さ変更、矩形選択。R / Lで挿入する手を切り替えます。</td></tr>
+<tr><td>リズム</td><td>通常グリッドに加えて1/4・1/8・1/16三連を選択できます。MusicXMLに含まれる休符情報は保存時に保持し、ピアノロール上には休符ノードを表示しません。</td></tr>
+<tr><td>Key / Scale</td><td>推定候補からScaleを選び、TonicとScale種類を明示修正できます。Major / Minorと各Diatonic Modeのほか、Harmonic / Melodic Minor、Pentatonic、Blues、Whole Tone、Chromaticにも対応します。Scale Guideは各Scaleが有効な時間区間だけ表示します。</td></tr>
+<tr><td>コード</td><td>推定コードは控えめな色で表示します。コード名をダブルクリックすると、そのコード開始位置を追加・変更・削除できます。編集対象の有効区間はレーン上で強調表示されます。Hキーを押している間は各コードが有効な時間区間だけ構成音を強調します。</td></tr>
+<tr><td>表示音域</td><td>表示する鍵盤範囲の移動、拡大、縮小、全体表示</td></tr>
+<tr><td>ノート詳細</td><td>MIDIノート、開始位置、長さ、Voice、指番号、手の編集</td></tr>
+<tr><td>試聴</td><td>範囲再生ON / OFF、現在位置周辺、選択周辺、前後小節数、ループ、再生 / 一時停止 / 再開 / 停止</td></tr>
+<tr><td>作業保存</td><td>「作業保存」または <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> で、MusicXMLを確定せず現在の編集状態を専用の作業ファイルへ保存できます。次回同じMusicXMLを開いたときに、作業を再開するかMusicXMLだけを開くか選べます。</td></tr>
+<tr><td>耳コピ用の元音源</td><td>「元音源を使用」をONにすると、ピアノロールと同じ時間軸・Grid・現在位置線を共有する波形レーンを表示します。複数の同期ポイントでMusicXMLと元音源を合わせ、ピアノアレンジに含めないイントロ / 間奏 / アウトロ等は「カット」として非破壊で保持できます。譜面 / 原音 / 両方の再生、個別音量・Pan、A/B比較にも対応します。OFFではレーンと関連操作を非表示にします。</td></tr>
+</tbody>
+</table>
+
+<h3 style="margin-top:22px">耳コピ用の元音源を合わせる</h3>
+<p>元音源同期は、音声ファイルを切ったり書き換えたりせず、<strong>譜面の位置と元音源の時刻の対応</strong>だけを記録します。原曲とピアノアレンジの構成が違う場合でも、元音源を残したまま編集できます。</p>
+<ol>
+<li>「元音源を使用」をONにして、耳コピ元の音声ファイルを選びます。</li>
+<li>曲頭の位置が違う場合は、波形レーンを <kbd>Shift</kbd> + ドラッグして開始位置を合わせます。</li>
+<li>途中の位置合わせが必要な場所は <kbd>Alt</kbd> + クリックで同期ポイントを追加します。追加位置は現在のGridへスナップし、再生位置は移動しません。</li>
+<li>同期点の間に、原曲にはあるがピアノアレンジには含めない間奏などがある場合は、その区間で <kbd>Shift</kbd> + ドラッグします。余った元音源部分は「カット」として帯表示されます。</li>
+<li>「両方」再生またはA/B比較で結果を確認します。同期再生ではカット区間を待たずに即時スキップします。</li>
+</ol>
+<p class="note good">「カット」は元音源ファイルの削除ではありません。波形レーンのカット帯をクリックしたり、原音を直接再生したりすれば、カット対象になった元音源もいつでも確認できます。</p>
+
+<p class="note good" style="margin-top:14px"><strong>編集を中断するとき:</strong> 上部の「作業保存」を使用すると、MusicXML本体を変更せずに現在の編集途中状態を保存できます。作業ファイルには編集中の譜面、難易度、元音源設定、カーソル位置、Grid、選択、表示範囲などが含まれます。次回同じMusicXMLを編集すると「作業データを読み込みますか？」と確認されるので、再開する場合は読み込み、元のMusicXMLからやり直す場合はMusicXMLのみを選びます。MusicXMLが作業保存後に外部変更されている場合は警告します。</p>
+<p class="note good" style="margin-top:14px">範囲再生OFFでは現在位置から曲末まで試聴します。範囲再生ONでは「現在位置周辺」または「選択周辺」を基準にし、前後0 / 1 / 2 / 4小節から範囲を作成できます。Spaceキーは再生 / 一時停止 / 再開として動作します。</p>
+<p class="note" style="margin-top:10px">左タイムラインレーンのドラッグ操作は設定で「タッチスクロール（惰性あり）」または「直接追従（離した位置で停止）」を選択できます。右クリックメニューや拍子 / Tempo編集を閉じた後も、そのままホイールやショートカット操作を続けられます。ピアノロール上では Alt + 左ドラッグ、または中ボタンドラッグで時間・音域方向へ盤面を移動できます。音域方向のパンは設定から無効化できます。</p>
+<p class="note" style="margin-top:10px">小節を挿入すると後続のノート、コード、Tempo、Key / Scaleも同じ小節長だけ後ろへ移動します。小節を削除すると対象小節の内容を取り除き、後続を前へ詰めます。拍子を変更した場合も小節長に合わせて後続位置を自動調整します。Tempo変更点はBPM値としてタイムライン上に表示されます。最後に残る1小節は削除できません。</p>
+<p class="note" style="margin-top:10px"><strong>耳コピ用の元音源:</strong> MusicXMLと録音は複数の同期ポイントで対応付けます。原音0秒と原音ファイル末尾を固定端とし、譜面側には開始位置と終了位置を持ちます。Shift+ドラッグはドラッグした区間だけを調整します。曲頭～最初の同期点では開始位置を動かします。同期点以降の区間では、下方向の調整は区間の開始側、上方向の調整は終了側を動かし、隣接区間のアンカーは固定します。最終区間を上方向へ調整した場合は譜面終了位置が前へ動きます。そこで生じた時間差は自動的に「カット」となり、ピアノアレンジに含めない間奏等を非破壊で保持できます。「両方」再生やA/B比較ではカット開始時に区間末尾へ即時ジャンプするため、ピアノロールを止めて待機しません。原音単独の直接試聴ではカット内も確認できます。逆方向へ戻すと既存の差を先に縮めます。Alt+クリックではクリック位置の最寄りGridへ同期ポイントを追加でき、再生位置は動かしません。「カット」の帯はクリックして区間内を直接移動できます。</p>
+<p class="note" style="margin-top:10px">元音源設定はMusicXML本体へ埋め込まず、同じ場所の <code>&lt;MusicXML&gt;.pianopractice.audio.json</code> に保存します。小節挿入 / 削除 / 拍子変更では同期ポイントの譜面位置も追従し、MusicXML保存時に元音源設定も保存します。</p>
+<p class="note good" style="margin-top:10px">標準MusicXMLで表現できるMajor / Minor / Dorian / Phrygian / Lydian / Mixolydian / Locrianは key / mode として保存します。Harmonic Minorなど標準modeだけで区別できないScaleは、標準調号にPiano Practice Toolの補助メタデータを加えて次回読み込みでも復元します。コードは harmony として保存します。</p>
+</section>
+
+<section id="settings">
+<h2>設定</h2>
+<p>設定ウィンドウは起動画面、練習モード、編集モードから開けます。</p>
+
+<h3 style="margin-top:22px">SoundFont</h3>
+<p>内蔵音源はSoundFont 2（<code>.sf2</code>）を使用します。本体には動作確認用・初期音源として、FreePatsの <strong>Upright Piano KW Small SF2</strong> を同梱します。SF2版は約5.8 MiBで、Creative Commons CC0 1.0として公開されています。</p>
+<ul>
+<li>「MIDI / 音源」のSoundFont欄から任意の <code>.sf2</code> を選択できます。</li>
+<li>複数音色入りのSoundFontでは「音色 / Preset」からBank / Programごとの音色を選べます。</li>
+<li>ピアノ以外の音色しか含まないSoundFontも使用できます。</li>
+<li>SoundFont / Preset / ゲイン / リバーブは設定画面を開いたまま試聴できます。保存すると設定が確定します。</li>
+<li>リバーブはSoundFont側の設定に依存せず、Piano Practice Tool側のステレオリバーブとして適用します。</li>
+<li><code>SoundFonts</code> フォルダ内のファイルはアプリと一緒に移動できます。アプリ外のSoundFontは元の場所を参照します。</li>
+</ul>
+
+<h3 style="margin-top:22px">おすすめSoundFont</h3>
+<table>
+<thead><tr><th>SoundFont</th><th>向いている用途</th><th>SF2サイズ</th><th>ライセンス</th></tr></thead>
+<tbody>
+<tr><td><strong>Upright Piano KW Small</strong></td><td>既定・軽量。まず試す場合</td><td>約5.8 MiB</td><td>CC0 1.0</td></tr>
+<tr><td><strong>Upright Piano KW</strong></td><td>容量を抑えつつ既定版より高音質</td><td>約27 MiB</td><td>CC0 1.0</td></tr>
+<tr><td><strong>YDP Grand Piano</strong></td><td>中程度の容量で別系統のグランドピアノ音色</td><td>約36 MiB</td><td>CC BY 3.0</td></tr>
+<tr><td><strong>Salamander Grand Piano</strong></td><td>容量より音質を重視</td><td>約296 MiB</td><td>CC BY 3.0</td></tr>
+</tbody>
+</table>
+<p><a href="https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html" target="_blank" rel="noreferrer">FreePats - Acoustic Grand Piano</a> から各SF2を入手できます。既定のUpright Piano KW Small以外は本ツールへ同梱していません。</p>
+<p class="note warn">追加したSoundFontには配布元のライセンスが適用されます。特にCC BYなど帰属表示が必要なSoundFontを他者へ再配布する場合は、配布元の条件を確認してください。同梱されているSoundFontはPiano Practice Toolの0BSDライセンスの対象外です。</p>
+
+<div class="grid">
+<div class="card"><h3>MIDI / 音源</h3><p>MIDI入力、発音先、SoundFontとPreset、内蔵音源ゲイン、アプリ側ステレオリバーブ、お手本再生の強さ、鍵盤範囲を設定します。</p></div>
+<div class="card"><h3>練習 / 判定</h3><p>演奏タイミングの判定幅とメトロノーム音量を設定します。</p></div>
+<div class="card"><h3>表示</h3><p>ピアノロールの表示範囲、右手 / 左手の色分け、運指番号、次の課題音ガイドに加え、編集タイムラインのドラッグ方式（タッチスクロール / 直接追従）を設定します。運指番号は左右色分けON時だけ有効です。</p></div>
+<div class="card"><h3>楽曲ライブラリ</h3><p>MusicXMLを検索するフォルダを追加・削除します。</p></div>
+</div>
+
+<figure class="screenshot">
+<img src="sample_images/ppt_05_option00.jpg" alt="Piano Practice Toolの設定画面">
+<figcaption>設定画面 — MIDI / 音源、練習 / 判定、表示、楽曲ライブラリを設定できます。</figcaption>
+</figure>
+</section>
+
+<section id="files">
+<h2>保存場所</h2>
+<p>設定や練習履歴は、アプリを置いたフォルダを基準に保存されます。アプリ配下の楽曲データはフォルダごと別の場所へ移動して使用できます。設定で追加した外部の楽曲フォルダは、その外部フォルダを引き続き参照します。</p>
+
+<table>
+<thead><tr><th>項目</th><th>場所</th></tr></thead>
+<tbody>
+<tr><td>設定</td><td><code>piano-practice-settings.json</code></td></tr>
+<tr><td>練習履歴</td><td><code>practice-history.json</code></td></tr>
+<tr><td>曲一覧解析キャッシュ</td><td><code>song-catalog-cache.json</code></td></tr>
+<tr><td>既定楽曲フォルダ</td><td><code>score_data</code></td></tr>
+<tr><td>既定SoundFont</td><td><code>SoundFonts\UprightPianoKW-small-20190703.sf2</code></td></tr>
+<tr><td>運指メタデータ</td><td>MusicXMLと同じ場所の <code>&lt;MusicXML&gt;.pianopractice.json</code></td></tr>
+<tr><td>元音源同期設定</td><td>MusicXMLと同じ場所の <code>&lt;MusicXML&gt;.pianopractice.audio.json</code></td></tr>
+<tr><td>編集途中の作業データ</td><td>MusicXMLと同じ場所の <code>&lt;MusicXML&gt;.pianopractice.editor.json</code></td></tr>
+<tr><td>利用ガイド</td><td><code>docs\index.html</code></td></tr>
+</tbody>
+</table>
+
+<p class="note" style="margin-top:14px"><code>score_data</code> が存在しない場合は自動的に作成されます。<code>song-catalog-cache.json</code> は曲一覧を高速化する再生成可能なキャッシュで、削除しても楽曲データや練習履歴は失われません。耳コピ用の元音源設定は対象MusicXMLの隣に <code>.pianopractice.audio.json</code> サイドカーとして保存され、元音源ファイル自体はコピーや埋め込みを行いません。</p>
+</section>
+
+<section id="controls">
+<h2>編集画面の主な操作</h2>
+<table>
+<thead><tr><th>操作</th><th>機能</th></tr></thead>
+<tbody>
+<tr><td>ダブルクリック</td><td>ノート挿入</td></tr>
+<tr><td>ドラッグ</td><td>ノート移動</td></tr>
+<tr><td>ノート上端ドラッグ</td><td>ノート長変更</td></tr>
+<tr><td><kbd>Ctrl</kbd> + クリック</td><td>複数選択</td></tr>
+<tr><td><kbd>Ctrl</kbd> + <kbd>S</kbd></td><td>MusicXMLへ保存して編集内容を確定</td></tr>
+<tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd></td><td>MusicXMLを変更せず、編集途中の作業データを保存</td></tr>
+<tr><td><kbd>Ctrl</kbd> + <kbd>Z</kbd> / <kbd>Y</kbd></td><td>Undo / Redo</td></tr>
+<tr><td><kbd>Ctrl</kbd> + <kbd>C</kbd> / <kbd>X</kbd> / <kbd>V</kbd> / <kbd>D</kbd></td><td>コピー / 切り取り / 貼り付け / 複製</td></tr>
+<tr><td><kbd>Delete</kbd></td><td>選択ノートを削除</td></tr>
+<tr><td><kbd>Space</kbd></td><td>試聴 / 一時停止 / 再開。元音源ON時は選択中の「譜面 / 原音 / 両方」モードで再生</td></tr>
+<tr><td><kbd>←</kbd> / <kbd>→</kbd></td><td>選択ノートを半音単位で移動</td></tr>
+<tr><td><kbd>Shift</kbd> + <kbd>←</kbd> / <kbd>→</kbd></td><td>選択ノートを1オクターブ移動</td></tr>
+<tr><td><kbd>Ctrl</kbd> + <kbd>←</kbd> / <kbd>→</kbd></td><td>選択ノートを位置ごとのScale内で隣の構成音へ移動</td></tr>
+<tr><td><kbd>↑</kbd> / <kbd>↓</kbd></td><td>選択ノートを時間軸方向へGrid単位で移動</td></tr>
+<tr><td><kbd>Shift</kbd> + <kbd>↑</kbd> / <kbd>↓</kbd></td><td>選択ノート長をGrid単位で変更</td></tr>
+<tr><td><kbd>Home</kbd> / <kbd>End</kbd></td><td>曲頭 / 曲末へ移動</td></tr>
+<tr><td><kbd>Ctrl</kbd> + <kbd>Shift</kbd> + ホイール</td><td>上で曲末、下で曲頭へ移動</td></tr>
+<tr><td>元音源波形をクリック</td><td>原音位置を直接移動。「カット」帯では横位置で区間内時刻を指定</td></tr>
+<tr><td>元音源波形をダブルクリック</td><td>その原音位置から再生</td></tr>
+<tr><td><kbd>Shift</kbd> + 元音源レーンをドラッグ</td><td>曲頭区間は開始位置を調整。同期点以降は下方向で開始側、上方向で終了側を調整し、差分を「カット」として保持</td></tr>
+<tr><td><kbd>Alt</kbd> + 元音源波形クリック</td><td>クリック位置の最寄りGridへ同期ポイントを追加。再生位置は移動しません。</td></tr>
+<tr><td>同期ポイントをドラッグ</td><td>同期ポイントの譜面位置を調整</td></tr>
+<tr><td><kbd>Shift</kbd> + ホイール（同期点選択中）</td><td>同期ポイントの原音位置を50ms単位で微調整</td></tr>
+<tr><td>同期ポイントを右クリック / <kbd>Delete</kbd></td><td>同期ポイントを削除</td></tr>
+<tr><td><kbd>B</kbd> / A/B比較</td><td>対象範囲を原音→譜面の順で連続再生。同期上のカット区間は待たずにスキップ</td></tr>
+<tr><td><kbd>R</kbd> / <kbd>L</kbd></td><td>右手 / 左手ノート挿入モード</td></tr>
+<tr><td><kbd>K</kbd></td><td>Scale Guide ON / OFF</td></tr>
+<tr><td><kbd>H</kbd>（押下中）</td><td>各コード区間の構成音を、その時間位置だけ強調</td></tr>
+<tr><td>Alt + 左ドラッグ / 中ボタンドラッグ</td><td>時間・音域方向へパン（音域方向は設定で無効化可）</td></tr>
+<tr><td>左タイムラインレーンの小節番号側をクリック</td><td>クリック位置へ現在位置を移動</td></tr>
+<tr><td>左タイムラインレーンを右クリック</td><td>空小節の挿入 / 小節削除 / 拍子変更 / テンポ設定・変更削除</td></tr>
+<tr><td>左タイムラインレーンのコード名をダブルクリック</td><td>その位置のコードを追加 / 変更 / 削除</td></tr>
+<tr><td>左タイムラインレーンをドラッグ</td><td>盤面を掴んで時間方向へ移動。設定により惰性スクロール</td></tr>
+<tr><td>ホイール</td><td>現在位置を時間方向へ移動。試聴中は停止し、移動先を次の再生開始位置にします。</td></tr>
+<tr><td><kbd>Shift</kbd> + ホイール</td><td>時間方向に高速移動</td></tr>
+<tr><td><kbd>Ctrl</kbd> + ホイール</td><td>時間方向のズーム</td></tr>
+<tr><td><kbd>Alt</kbd> + ホイール</td><td>表示音域をズーム</td></tr>
+<tr><td><kbd>Alt</kbd> + <kbd>Shift</kbd> + ホイール</td><td>表示音域を移動</td></tr>
+</tbody>
+</table>
+</section>
+<section id="project">
+<h2>プロジェクトについて</h2>
+<p>Piano Practice Toolは個人利用のための練習環境を出発点として開発している非公式プロジェクトです。機能要件や操作設計は実際の練習・編集用途を基準に更新しています。実装コーディングやドキュメント整理にはOpenAIのChatGPTを活用しています。</p>
+</section>
+
+<section id="license">
+<h2>ライセンス</h2>
+<p>このツール独自のソースコードとドキュメントは <strong>Zero-Clause BSD License (0BSD)</strong> です。利用、複製、改変、再配布、商用利用を自由に行えます。</p>
+<p class="note">本ツールは現状のまま提供され、作者による保証はありません。第三者ライブラリ、既定SoundFont、ユーザーが追加したSoundFontにはそれぞれのライセンスが適用されます。詳しくは <code>LICENSE</code> と <code>THIRD_PARTY_NOTICES.txt</code> を参照してください。</p>
+</section>
+
+</main>
+
+<footer>Piano Practice Tool / User Guide</footer>
+</body>
+</html>

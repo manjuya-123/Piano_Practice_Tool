@@ -1,0 +1,151 @@
+<UserControl x:Class="PianoPracticeTool.Views.EditorSongLibraryView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" Margin="0,0,0,16">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <StackPanel>
+                <TextBlock Text="楽譜編集"
+                           FontSize="30"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource TextPrimaryBrush}" />
+                <TextBlock Text="元ファイルを直接編集するか、複製してから編集できます。"
+                           Margin="0,6,0,0"
+                           Foreground="{DynamicResource TextSecondaryBrush}"
+                           FontSize="14" />
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Content="モード選択へ"
+                        Style="{DynamicResource SecondaryButtonStyle}"
+                        Click="BackButton_Click" />
+                <Button Content="再読込"
+                        Margin="8,0,0,0"
+                        Style="{DynamicResource SecondaryButtonStyle}"
+                        Click="RefreshButton_Click" />
+                <Button Content="MusicXMLを開く"
+                        Margin="8,0,0,0"
+                        Style="{DynamicResource PrimaryButtonStyle}"
+                        Click="OpenFileButton_Click" />
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,0,0,12">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <Border Background="{DynamicResource SurfaceBrush}"
+                    BorderBrush="{DynamicResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="8"
+                    Padding="12,8">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="検索" VerticalAlignment="Center" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,10,0" />
+                    <TextBox x:Name="SearchTextBox"
+                             Grid.Column="1"
+                             Background="Transparent"
+                             BorderThickness="0"
+                             Foreground="{DynamicResource TextPrimaryBrush}"
+                             FontSize="14"
+                             TextChanged="SearchTextBox_TextChanged" />
+                </Grid>
+            </Border>
+            <TextBlock x:Name="SongCountText"
+                       Grid.Column="1"
+                       Margin="16,0,0,0"
+                       VerticalAlignment="Center"
+                       Foreground="{DynamicResource TextSecondaryBrush}" />
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <ListView x:Name="SongListView"
+                      Background="Transparent"
+                      BorderThickness="0"
+                      Foreground="{DynamicResource TextPrimaryBrush}"
+                      ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                      ScrollViewer.VerticalScrollBarVisibility="Auto"
+                      VirtualizingPanel.IsVirtualizing="True"
+                      VirtualizingPanel.VirtualizationMode="Recycling">
+                <ListView.ItemContainerStyle>
+                    <Style TargetType="ListViewItem">
+                        <Setter Property="HorizontalContentAlignment" Value="Stretch" />
+                        <Setter Property="Background" Value="Transparent" />
+                        <Setter Property="BorderThickness" Value="0" />
+                        <Setter Property="Padding" Value="0" />
+                        <Setter Property="Margin" Value="0,0,0,8" />
+                        <Setter Property="Focusable" Value="False" />
+                    </Style>
+                </ListView.ItemContainerStyle>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{DynamicResource CardBorderStyle}" Padding="14,12">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Song.Title}" FontSize="17" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                        <TextBlock Text="{Binding Song.DifficultyText}" Margin="10,2,0,0" FontSize="11" Foreground="{DynamicResource AccentTextBrush}" />
+                                    </StackPanel>
+                                    <TextBlock Text="{Binding Song.FileName}" Margin="0,3,0,6" FontSize="10" Foreground="{DynamicResource TextMutedBrush}" />
+                                    <WrapPanel>
+                                        <TextBlock Text="{Binding Song.TempoText}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,16,0" />
+                                        <TextBlock Text="{Binding Song.DurationText}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,16,0" />
+                                        <TextBlock Text="{Binding Song.NoteCountText}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,16,0" />
+                                        <TextBlock Text="{Binding Song.RangeText}" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,16,0" />
+                                        <TextBlock Text="{Binding Song.ScaleText}" Foreground="{DynamicResource AccentTextBrush}" />
+                                    </WrapPanel>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1" Width="150" Margin="18,0,0,0" VerticalAlignment="Center">
+                                    <Button Content="直接編集"
+                                            Tag="{Binding}"
+                                            Style="{DynamicResource PrimaryButtonStyle}"
+                                            Click="DirectEditButton_Click" />
+                                    <Button Content="複製して編集"
+                                            Tag="{Binding}"
+                                            Margin="0,7,0,0"
+                                            Style="{DynamicResource SecondaryButtonStyle}"
+                                            Click="DuplicateEditButton_Click" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <StackPanel x:Name="EmptyStatePanel" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+                <TextBlock Text="編集できる曲がありません" FontSize="20" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                <TextBlock Text="登録フォルダを確認するか、MusicXMLを直接開いてください。" Margin="0,8,0,0" Foreground="{DynamicResource TextSecondaryBrush}" />
+            </StackPanel>
+        </Grid>
+
+        <Border x:Name="WarningPanel"
+                Grid.Row="3"
+                Margin="0,10,0,0"
+                Background="#33291A"
+                BorderBrush="#725628"
+                BorderThickness="1"
+                CornerRadius="6"
+                Padding="10"
+                Visibility="Collapsed">
+            <TextBlock x:Name="WarningText" Foreground="#FFD38A" TextWrapping="Wrap" />
+        </Border>
+    </Grid>
+</UserControl>

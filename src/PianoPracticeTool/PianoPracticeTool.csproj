@@ -1,0 +1,56 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net7.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>PianoPracticeTool</RootNamespace>
+    <ApplicationIcon>Assets\AppIcon.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Resource Include="Assets\AppIcon.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="MeltySynth" Version="2.4.1" />
+    <PackageReference Include="NAudio" Version="2.4.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <DefaultSoundFont>$(IntermediateOutputPath)SoundFonts\UprightPianoKW-small-20190703.sf2</DefaultSoundFont>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\..\LICENSE" Link="LICENSE" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="THIRD_PARTY_NOTICES.txt" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="..\..\docs\index.html" Link="docs\index.html" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <None Include="..\..\docs\sample_images\**\*.*" Link="docs\sample_images\%(RecursiveDir)%(Filename)%(Extension)" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+  <Target Name="EnsureDefaultSoundFont"
+          BeforeTargets="Build">
+    <Exec Command="powershell -NoProfile -NonInteractive -ExecutionPolicy Bypass -File &quot;$(MSBuildProjectDirectory)\..\..\build\EnsureDefaultSoundFont.ps1&quot; -DestinationPath &quot;$(MSBuildProjectDirectory)\$(DefaultSoundFont)&quot;" />
+  </Target>
+
+  <Target Name="CopyDefaultSoundFont"
+          AfterTargets="Build"
+          DependsOnTargets="EnsureDefaultSoundFont">
+    <MakeDir Directories="$(TargetDir)SoundFonts" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(DefaultSoundFont)"
+          DestinationFiles="$(TargetDir)SoundFonts\UprightPianoKW-small-20190703.sf2"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+  <Target Name="CopyDefaultSoundFontToPublish"
+          AfterTargets="Publish"
+          DependsOnTargets="EnsureDefaultSoundFont"
+          Condition="'$(PublishDir)' != ''">
+    <MakeDir Directories="$(PublishDir)SoundFonts" />
+    <Copy SourceFiles="$(MSBuildProjectDirectory)\$(DefaultSoundFont)"
+          DestinationFiles="$(PublishDir)SoundFonts\UprightPianoKW-small-20190703.sf2"
+          SkipUnchangedFiles="true" />
+  </Target>
+
+</Project>

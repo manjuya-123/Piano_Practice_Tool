@@ -1,0 +1,269 @@
+<UserControl x:Class="PianoPracticeTool.Views.PerformanceView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:controls="clr-namespace:PianoPracticeTool.Controls"
+             Background="Transparent">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="54" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0"
+                Margin="0,0,0,8"
+                Padding="8,6"
+                Background="{DynamicResource SurfaceBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="9">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <Button x:Name="ExitButton"
+                        Content="←"
+                        Width="40"
+                        Height="36"
+                        Padding="0"
+                        ToolTip="練習設定へ戻る"
+                        Style="{DynamicResource SecondaryButtonStyle}"
+                        Click="ExitButton_Click" />
+
+                <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                    <TextBlock x:Name="TitleText" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                    <TextBlock x:Name="ModeText" Margin="0,2,0,0" FontSize="10" Foreground="{DynamicResource TextMutedBrush}" />
+                </StackPanel>
+
+                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,12,0">
+                    <Button x:Name="SpeedDownButton"
+                            Content="−"
+                            Width="36"
+                            Height="36"
+                            Padding="0"
+                            FontSize="18"
+                            ToolTip="テンポを10%下げる"
+                            Style="{DynamicResource SecondaryButtonStyle}"
+                            Click="SpeedDownButton_Click" />
+                    <StackPanel Width="104" VerticalAlignment="Center">
+                        <TextBlock x:Name="SpeedText" TextAlignment="Center" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                        <TextBlock x:Name="BpmText" TextAlignment="Center" FontSize="10" Foreground="{DynamicResource TextMutedBrush}" />
+                    </StackPanel>
+                    <Button x:Name="SpeedUpButton"
+                            Content="+"
+                            Width="36"
+                            Height="36"
+                            Padding="0"
+                            FontSize="18"
+                            ToolTip="テンポを10%上げる"
+                            Style="{DynamicResource SecondaryButtonStyle}"
+                            Click="SpeedUpButton_Click" />
+                </StackPanel>
+
+                <Grid Grid.Column="3" Margin="0,0,8,0" MouseEnter="MetronomePanel_MouseEnter" MouseLeave="MetronomePanel_MouseLeave">
+                    <Button x:Name="MetronomeButton"
+                            Content="♩"
+                            Width="40"
+                            Height="36"
+                            Padding="0"
+                            FontSize="18"
+                            ToolTip="メトロノーム"
+                            Style="{DynamicResource SecondaryButtonStyle}"
+                            Click="MetronomeButton_Click" />
+                    <Popup x:Name="MetronomePopup"
+                           PlacementTarget="{Binding ElementName=MetronomeButton}"
+                           Placement="Bottom"
+                           StaysOpen="True"
+                           AllowsTransparency="True">
+                        <Border Margin="0,5,0,0"
+                                Padding="12,10"
+                                Width="190"
+                                Background="{DynamicResource SurfaceRaisedBrush}"
+                                BorderBrush="{DynamicResource BorderBrush}"
+                                BorderThickness="1"
+                                CornerRadius="8"
+                                MouseEnter="MetronomePopup_MouseEnter"
+                                MouseLeave="MetronomePopup_MouseLeave">
+                            <StackPanel>
+                                <Grid>
+                                    <TextBlock Text="メトロノーム音量" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" />
+                                    <TextBlock x:Name="MetronomeVolumeText" HorizontalAlignment="Right" FontSize="11" Foreground="{DynamicResource TextPrimaryBrush}" />
+                                </Grid>
+                                <Slider x:Name="MetronomeVolumeSlider"
+                                        Margin="0,8,0,0"
+                                        Minimum="0"
+                                        Maximum="100"
+                                        TickFrequency="10"
+                                        IsSnapToTickEnabled="True"
+                                        ValueChanged="MetronomeVolumeSlider_ValueChanged" />
+                            </StackPanel>
+                        </Border>
+                    </Popup>
+                </Grid>
+
+                <Button x:Name="PauseButton"
+                        Grid.Column="4"
+                        Content="⏸"
+                        Width="44"
+                        Height="36"
+                        Padding="0"
+                        FontSize="16"
+                        ToolTip="一時停止 / 再開"
+                        Style="{DynamicResource PrimaryButtonStyle}"
+                        Click="PauseButton_Click" />
+            </Grid>
+        </Border>
+
+        <Border x:Name="ListenTransportPanel"
+                Grid.Row="1"
+                Margin="0,0,0,8"
+                Padding="12,7"
+                Background="{DynamicResource SurfaceBrush}"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="9"
+                Visibility="Collapsed">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="112" />
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="86" />
+                </Grid.ColumnDefinitions>
+
+                <TextBlock x:Name="PlaybackPositionText"
+                           VerticalAlignment="Center"
+                           FontSize="11"
+                           FontWeight="SemiBold"
+                           Foreground="{DynamicResource TextPrimaryBrush}"
+                           Text="00:00 / 00:00" />
+
+                <Slider x:Name="PlaybackPositionSlider"
+                        Grid.Column="1"
+                        Margin="10,0"
+                        Minimum="0"
+                        Maximum="1"
+                        IsMoveToPointEnabled="True"
+                        ToolTip="お手本の再生位置を移動"
+                        PreviewMouseLeftButtonDown="PlaybackPositionSlider_PreviewMouseLeftButtonDown"
+                        ValueChanged="PlaybackPositionSlider_ValueChanged"
+                        LostMouseCapture="PlaybackPositionSlider_LostMouseCapture" />
+
+                <TextBlock x:Name="PlaybackMeasureText"
+                           Grid.Column="2"
+                           VerticalAlignment="Center"
+                           TextAlignment="Right"
+                           FontSize="11"
+                           Foreground="{DynamicResource TextSecondaryBrush}"
+                           Text="小節 —" />
+            </Grid>
+        </Border>
+
+        <Border Grid.Row="2"
+                Background="#080A0F"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="1"
+                CornerRadius="10"
+                ClipToBounds="True">
+            <Grid>
+                <controls:PianoRollControl x:Name="PianoRoll"
+                                            PreviewMouseWheel="PianoRoll_PreviewMouseWheel" />
+
+                <Border HorizontalAlignment="Right"
+                        VerticalAlignment="Top"
+                        Margin="0,16,16,0"
+                        Padding="14,10"
+                        Background="#D911151D"
+                        BorderBrush="#4A5468"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        IsHitTestVisible="False">
+                    <StackPanel>
+                        <TextBlock Text="SCORE" HorizontalAlignment="Right" FontSize="10" Foreground="{DynamicResource TextMutedBrush}" />
+                        <TextBlock x:Name="LiveScoreText" HorizontalAlignment="Right" FontSize="24" FontWeight="Bold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                        <TextBlock x:Name="LiveDetailText" HorizontalAlignment="Right" FontSize="10" Foreground="{DynamicResource TextSecondaryBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <Border x:Name="JudgementOverlay"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Top"
+                        Margin="0,22,0,0"
+                        Padding="18,9"
+                        Background="#D911151D"
+                        BorderBrush="#4A5468"
+                        BorderThickness="1"
+                        CornerRadius="8"
+                        IsHitTestVisible="False"
+                        Visibility="Collapsed">
+                    <StackPanel HorizontalAlignment="Center">
+                        <TextBlock x:Name="JudgementText" HorizontalAlignment="Center" FontSize="28" FontWeight="Bold" />
+                        <TextBlock x:Name="ComboText" Margin="0,2,0,0" HorizontalAlignment="Center" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <Border x:Name="PauseOverlay"
+                        Background="#9910141C"
+                        Visibility="Collapsed">
+                    <TextBlock Text="PAUSED"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center"
+                               FontSize="34"
+                               FontWeight="Bold"
+                               Foreground="{DynamicResource TextPrimaryBrush}" />
+                </Border>
+
+                <Border x:Name="ListenPauseIndicator"
+                        HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Margin="12,0,0,12"
+                        Padding="9,5"
+                        Background="#B3131720"
+                        BorderBrush="#39404E"
+                        BorderThickness="1"
+                        CornerRadius="6"
+                        IsHitTestVisible="False"
+                        Visibility="Collapsed">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="⏸"
+                                   Margin="0,0,6,0"
+                                   FontSize="11"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                        <TextBlock Text="一時停止  ホイール=1拍 / Shift=小節 / R=再生起点 / Space=再開"
+                                   FontSize="10"
+                                   Foreground="{DynamicResource TextSecondaryBrush}" />
+                    </StackPanel>
+                </Border>
+
+                <Border x:Name="ResultOverlay"
+                        Background="#E90B0E14"
+                        Visibility="Collapsed">
+                    <Border Width="520"
+                            Padding="28"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Background="{DynamicResource SurfaceBrush}"
+                            BorderBrush="{DynamicResource BorderBrush}"
+                            BorderThickness="1"
+                            CornerRadius="12">
+                        <StackPanel>
+                            <TextBlock Text="練習結果" HorizontalAlignment="Center" FontSize="26" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}" />
+                            <TextBlock x:Name="ResultScoreText" Margin="0,16,0,0" HorizontalAlignment="Center" FontSize="36" FontWeight="Bold" Foreground="{DynamicResource AccentTextBrush}" />
+                            <TextBlock x:Name="ResultDetailText" Margin="0,12,0,0" HorizontalAlignment="Center" TextAlignment="Center" TextWrapping="Wrap" Foreground="{DynamicResource TextSecondaryBrush}" />
+                            <Button Content="練習設定へ戻る"
+                                    Margin="0,22,0,0"
+                                    HorizontalAlignment="Center"
+                                    MinWidth="180"
+                                    Style="{DynamicResource PrimaryButtonStyle}"
+                                    Click="ResultBackButton_Click" />
+                        </StackPanel>
+                    </Border>
+                </Border>
+            </Grid>
+        </Border>
+    </Grid>
+</UserControl>

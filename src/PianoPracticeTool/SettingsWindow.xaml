@@ -1,0 +1,50 @@
+<Window x:Class="PianoPracticeTool.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:views="clr-namespace:PianoPracticeTool.Views"
+        Title="Piano Practice Tool - 設定"
+        Icon="Assets/AppIcon.ico"
+        Height="760"
+        Width="980"
+        MinHeight="620"
+        MinWidth="820"
+        WindowStartupLocation="CenterOwner"
+        Background="{DynamicResource AppBackgroundBrush}"
+        Foreground="{DynamicResource TextPrimaryBrush}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="64" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <Border Background="#10141C"
+                BorderBrush="{DynamicResource BorderBrush}"
+                BorderThickness="0,0,0,1">
+            <Grid Margin="20,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="設定"
+                               FontSize="22"
+                               FontWeight="SemiBold" />
+                    <TextBlock Text="MIDI・音源・練習・表示・ライブラリ設定"
+                               Margin="0,3,0,0"
+                               FontSize="11"
+                               Foreground="{DynamicResource TextMutedBrush}" />
+                </StackPanel>
+                <Button Grid.Column="1"
+                        Content="閉じる"
+                        Padding="14,7"
+                        VerticalAlignment="Center"
+                        Style="{DynamicResource SecondaryButtonStyle}"
+                        Click="CloseButton_Click" />
+            </Grid>
+        </Border>
+
+        <views:SettingsView x:Name="SettingsContent"
+                            Grid.Row="1"
+                            Margin="14,12,14,0" />
+    </Grid>
+</Window>

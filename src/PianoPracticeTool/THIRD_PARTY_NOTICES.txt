@@ -1,0 +1,89 @@
+THIRD-PARTY NOTICES
+
+The original Piano Practice Tool source code and documentation are licensed
+under the Zero-Clause BSD license (0BSD). See LICENSE.
+
+The components and assets listed below are third-party works and remain subject
+to their own license terms. The project's 0BSD license does not replace or
+override these notices.
+
+
+NAudio
+------
+Project: https://github.com/naudio/NAudio
+Version used by this application: 2.4.0
+License: MIT
+
+Copyright 2020 Mark Heath
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+MeltySynth
+----------
+Project: https://github.com/sinshu/meltysynth
+Version used by this application: 2.4.1
+License: MIT
+
+Copyright (C) 2014 Alex Veltsistas
+Copyright (C) 2017, 2018 Bernhard Schelling
+Based on SFZero, Copyright (C) 2012 Steve Folta
+Copyright (C) 2021 Nobuaki Tanaka
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the "Software"), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies
+of the Software, and to permit persons to whom the Software is furnished to do
+so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+
+Upright Piano KW
+----------------
+Project: FreePats / Upright Piano KW
+Bundled variant: Small size SF2
+Upstream information:
+https://freepats.zenvoid.org/Piano/acoustic-grand-piano.html
+License: Creative Commons CC0 1.0 Universal
+https://creativecommons.org/publicdomain/zero/1.0/
+
+The default SoundFont is downloaded from the official FreePats distribution
+during the build and copied to the application SoundFonts directory. It is the
+only SoundFont bundled by default with this project.
+
+The user documentation may recommend other third-party SoundFonts, including
+other FreePats piano SoundFonts. Those recommendations are informational only;
+the recommended files are not bundled with this project unless explicitly
+listed in this notice.
+
+Users may select other SoundFont (.sf2) files in the application settings.
+Those user-supplied SoundFonts are not distributed by this project and remain
+subject to their own license terms. The project's 0BSD license does not grant
+rights to redistribute third-party SoundFonts.
